@@ -9,5 +9,13 @@
 6. LOOP through steps 1-5, 5 times.
 */
 
+// generates random integer from 0 to max
+function randInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
+const options = ["scissors", "paper", "rock"];
 
+let cpuChoice = options[randInt(options.length)];
+
+console.log(cpuChoice);
