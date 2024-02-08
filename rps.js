@@ -19,12 +19,12 @@ const options = ["scissors", "paper", "rock"];
 
 let cpuChoice = options[randInt(options.length)];
 let invalidChoice = true;
-
+let userChoice = null;
 // get player choice, check if valid, continue if so
 
 while (invalidChoice) {
 
-    let userChoice = (prompt("Rock, paper, or scissors?")).toLowerCase();
+    userChoice = (prompt("Rock, paper, or scissors?")).toLowerCase();
 
     if (options.includes(userChoice)) {
         invalidChoice = false;
@@ -34,4 +34,16 @@ while (invalidChoice) {
         console.log('Invalid option, please type "rock", "paper", or "scissors".');
     }
 }
+
+// default to lose case
+let victory = false;
+
+// user win case
+if (userChoice == "scissors" && cpuChoice == "paper" || userChoice == "paper" && cpuChoice == "rock" || userChoice == "rock" && cpuChoice == "scissors") {
+    victory = true;
+}
+else if (userChoice == cpuChoice) {
+    victory = null;
+}
+
 
