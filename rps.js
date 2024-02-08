@@ -42,8 +42,18 @@ let victory = false;
 if (userChoice == "scissors" && cpuChoice == "paper" || userChoice == "paper" && cpuChoice == "rock" || userChoice == "rock" && cpuChoice == "scissors") {
     victory = true;
 }
+// tie case
 else if (userChoice == cpuChoice) {
     victory = null;
 }
 
-
+// output result
+if (victory == false) {
+    console.log("You lose! Your %s lost to the computer's %s.", userChoice, cpuChoice);
+}
+else if(victory == true) {
+    console.log("You won! Your %s beat the computer's %s!", userChoice, cpuChoice);
+}
+else {
+    console.log("Tie! Both you and the computer used %s", userChoice);
+}
