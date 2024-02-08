@@ -15,45 +15,76 @@ function randInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-const options = ["scissors", "paper", "rock"];
+function playRound() {
+    const options = ["scissors", "paper", "rock"];
 
-let cpuChoice = options[randInt(options.length)];
-let invalidChoice = true;
-let userChoice = null;
-// get player choice, check if valid, continue if so
+    let cpuChoice = options[randInt(options.length)];
+    let invalidChoice = true;
+    let userChoice = null;
+    // get player choice, check if valid, continue if so
+    while (invalidChoice) {
 
-while (invalidChoice) {
+        userChoice = (prompt("Rock, paper, or scissors?")).toLowerCase();
 
-    userChoice = (prompt("Rock, paper, or scissors?")).toLowerCase();
-
-    if (options.includes(userChoice)) {
-        invalidChoice = false;
+        if (options.includes(userChoice)) {
+            invalidChoice = false;
+        }
+        
+        else {
+            console.log('Invalid option, please type "rock", "paper", or "scissors".');
+        }
     }
-    
+
+    // default to lose case
+    let victory = false;
+
+    // user win case
+    if (userChoice == "scissors" && cpuChoice == "paper" || userChoice == "paper" && cpuChoice == "rock" || userChoice == "rock" && cpuChoice == "scissors") {
+        victory = true;
+    }
+    // tie case
+    else if (userChoice == cpuChoice) {
+        victory = null;
+    }
+
+    // output result
+    if (victory == false) {
+        console.log("You lose! Your %s lost to the computer's %s.", userChoice, cpuChoice);
+    }
+    else if(victory == true) {
+        console.log("You won! Your %s beat the computer's %s!", userChoice, cpuChoice);
+    }
     else {
-        console.log('Invalid option, please type "rock", "paper", or "scissors".');
+        console.log("Tie! Both you and the computer used %s", userChoice);
     }
+
+    return victory;
 }
 
-// default to lose case
-let victory = false;
+function playGame() {
+    let userScore = 0;
+    let cpuScore = 0;
 
-// user win case
-if (userChoice == "scissors" && cpuChoice == "paper" || userChoice == "paper" && cpuChoice == "rock" || userChoice == "rock" && cpuChoice == "scissors") {
-    victory = true;
-}
-// tie case
-else if (userChoice == cpuChoice) {
-    victory = null;
+    for (let i = 0; i < 5; i++) {
+        let result = playRound();
+        if (result == true) {
+            userScore++;
+        }
+        else if(result == false) {
+            cpuScore++;
+        }
+    }
+
+    if (userScore > cpuScore) {
+        console.log("You win the game %s to %s", userScore, cpuScore);
+    }
+    else if (userScore < cpuScore) {
+        console.log("You lose the game %s to %s", userScore, cpuScore);
+    }
+    else {
+        console.log("You tied %s to %s with the computer", userScore, cpuScore);
+    }
+
 }
 
-// output result
-if (victory == false) {
-    console.log("You lose! Your %s lost to the computer's %s.", userChoice, cpuChoice);
-}
-else if(victory == true) {
-    console.log("You won! Your %s beat the computer's %s!", userChoice, cpuChoice);
-}
-else {
-    console.log("Tie! Both you and the computer used %s", userChoice);
-}
+playGame();
