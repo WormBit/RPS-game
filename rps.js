@@ -15,25 +15,14 @@ function randInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function playRound() {
+function playRound(choice) {
+    // have button clicked pass the player's choice as an arg
+
     const options = ["scissors", "paper", "rock"];
 
     let cpuChoice = options[randInt(options.length)];
-    let invalidChoice = true;
-    let userChoice = null;
+    let userChoice = choice;
     // get player choice, check if valid, continue if so
-    while (invalidChoice) {
-
-        userChoice = (prompt("Rock, paper, or scissors?")).toLowerCase();
-
-        if (options.includes(userChoice)) {
-            invalidChoice = false;
-        }
-        
-        else {
-            console.log('Invalid option, please type "rock", "paper", or "scissors".');
-        }
-    }
 
     // default to lose case
     let victory = false;
@@ -47,7 +36,7 @@ function playRound() {
         victory = null;
     }
 
-    // output result
+    // output result, use as debug info but delete later
     if (victory == false) {
         console.log("You lose! Your %s lost to the computer's %s.", userChoice, cpuChoice);
     }
@@ -65,6 +54,7 @@ function playGame() {
     let userScore = 0;
     let cpuScore = 0;
 
+    /* logic not needed. game now ends immediately after one player reaches 5 points
     for (let i = 0; i < 5; i++) {
         let result = playRound();
         if (result == true) {
@@ -74,6 +64,8 @@ function playGame() {
             cpuScore++;
         }
     }
+    */ 
+   
 
     if (userScore > cpuScore) {
         console.log("You win the game %s to %s", userScore, cpuScore);
@@ -87,4 +79,48 @@ function playGame() {
 
 }
 
-playGame();
+window.onload=function(){
+    let rock = document.querySelector("#rockBtn");
+    let paper = document.querySelector("#paperBtn");
+    let scissors = document.querySelector("#scissorsBtn");
+    let result = document.querySelector('p');
+
+    rock.addEventListener('click', () => {
+        let gameResult = playRound("rock");
+        if (gameResult == false) {
+            result.textContent = "You lose! Your rock lost to the computer's paper.";
+        }
+        else if (gameResult == true) {
+            result.textContent = "You won! your rock beat the computer's scissors.";
+        }
+        else {
+            result.textContent = "You tied with the computer!";
+        }
+    });
+
+    paper.addEventListener('click', () => {
+        let gameResult = playRound("paper");
+        if (gameResult == false) {
+            result.textContent = "You lose! Your paper lost to the computer's scissors.";
+        }
+        else if (gameResult == true) {
+            result.textContent = "You won! your paper beat the computer's rock.";
+        }
+        else {
+            result.textContent = "You tied with the computer!";
+        }
+    });
+
+    scissors.addEventListener('click', () => {
+        let gameResult = playRound("scissors");
+        if (gameResult == false) {
+            result.textContent = "You lose! Your scissors lost to the computer's rock.";
+        }
+        else if (gameResult == true) {
+            result.textContent = "You won! your scissors beat the computer's paper.";
+        }
+        else {
+            result.textContent = "You tied with the computer!";
+        }
+    });
+};
