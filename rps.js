@@ -80,47 +80,83 @@ function playGame() {
 }
 
 window.onload=function(){
+    let cpuScore = 0;
+    let playerScore = 0;
     let rock = document.querySelector("#rockBtn");
     let paper = document.querySelector("#paperBtn");
     let scissors = document.querySelector("#scissorsBtn");
     let result = document.querySelector('p');
+    let score = document.querySelector('h5');
 
     rock.addEventListener('click', () => {
         let gameResult = playRound("rock");
         if (gameResult == false) {
+            cpuScore++;
             result.textContent = "You lose! Your rock lost to the computer's paper.";
         }
         else if (gameResult == true) {
+            playerScore++;
             result.textContent = "You won! your rock beat the computer's scissors.";
         }
         else {
             result.textContent = "You tied with the computer!";
+        }
+        score.textContent = `Player Score: ${playerScore} | CPU Score: ${cpuScore}`;
+        if (playerScore >= 5) {
+            result.textContent = "You scored 5 points! You win!";
+            playerScore = 0, cpuScore = 0;
+        }
+        else if (cpuScore >= 5) {
+            result.textContent = "The CPU reached 5 points first. You lost.";
+            playerScore = 0, cpuScore = 0;
         }
     });
 
     paper.addEventListener('click', () => {
         let gameResult = playRound("paper");
         if (gameResult == false) {
+            cpuScore++;
             result.textContent = "You lose! Your paper lost to the computer's scissors.";
         }
         else if (gameResult == true) {
+            playerScore++;
             result.textContent = "You won! your paper beat the computer's rock.";
         }
         else {
             result.textContent = "You tied with the computer!";
+        }
+        score.textContent = `Player Score: ${playerScore} | CPU Score: ${cpuScore}`;
+        if (playerScore >= 5) {
+            result.textContent = "You scored 5 points! You win!";
+            playerScore = 0, cpuScore = 0;
+        }
+        else if (cpuScore >= 5) {
+            result.textContent = "The CPU reached 5 points first. You lost.";
+            playerScore = 0, cpuScore = 0;
         }
     });
 
     scissors.addEventListener('click', () => {
         let gameResult = playRound("scissors");
         if (gameResult == false) {
+            cpuScore++;
             result.textContent = "You lose! Your scissors lost to the computer's rock.";
         }
         else if (gameResult == true) {
+            playerScore++;
             result.textContent = "You won! your scissors beat the computer's paper.";
         }
         else {
             result.textContent = "You tied with the computer!";
+        }
+        score.textContent = `Player Score: ${playerScore} | CPU Score: ${cpuScore}`;
+        if (playerScore >= 5) {
+            result.textContent = "You scored 5 points! You win!";
+            playerScore = 0, cpuScore = 0;
+        }
+        else if (cpuScore >= 5) {
+            result.textContent = "The CPU reached 5 points first. You lost.";
+            playerScore = 0, cpuScore = 0;
         }
     });
 };
